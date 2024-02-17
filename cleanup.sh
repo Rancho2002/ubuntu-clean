@@ -11,6 +11,11 @@ rm -rf ~/.cache/thumbnails/* #Removes thumbnail cache files
 set -eu
 LANG=C snap list --all | awk '/disabled/{print $1, $3}' |
     while read snapname revision; do
-        snap remove "$snapname" --revision="$revision"
+      sudo snap remove "$snapname" --revision="$revision"
     done
-notify-send "Cleaning done"
+
+if command -v notify-send &> /dev/null; then
+    notify-send "Cleaning done"
+else
+    echo "Cleaning done"
+fi
